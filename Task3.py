@@ -24,17 +24,22 @@ class Student():
         for grade_key in self.grades:
             self.aver_grade += sum(self.grades[grade_key])
             n_grade += len(self.grades[grade_key])
-        if n_grade > 0: self.aver_grade = self.aver_grade / n_grade
+        if n_grade > 0: self.aver_grade = round(self.aver_grade / n_grade, 1)
         return self.aver_grade
 
     def __str__(self) -> str:
-        outstr = f'print(some_student)\n'
+        outstr = '\n'
+        outstr = f'{outstr}print(some_student)\n'
         outstr = f'{outstr}Имя: {self.name}\n'
         outstr = f'{outstr}Фамилия: {self.surname}\n'
         outstr = f'{outstr}Средняя оценка за домашние задания: {self.aver_grade}\n'
         outstr = f'{outstr}Курсы в процессе обучения: {", ".join(self.courses_in_progress)}\n'
         outstr = f'{outstr}Завершенные курсы: {", ".join(self.finished_courses)}'
         return outstr
+    
+    def __gt__(self, other):
+        return self.aver_grade > other.aver_grade
+
 
     
 class Mentor():
@@ -51,10 +56,11 @@ class Lecturer (Mentor):
         self.aver_grade = 0
 
     def __str__(self) -> str:
-        outstr = f'print(some_lecturer)\n'
+        outstr = '\n'
+        outstr = f'{outstr}print(some_lecturer)\n'
         outstr = f'{outstr}Имя: {self.name}\n'
         outstr = f'{outstr}Фамилия: {self.surname}\n'
-        outstr = f'{outstr}Средняя оценка за лекции: {self.aver_grade}'
+        outstr = f'{outstr}Средняя оценка за лекции: {self.aver_grade}\n'
         return outstr
 
     def aver_grade_calc(self):
@@ -63,8 +69,14 @@ class Lecturer (Mentor):
         for grade_key in self.grades:
             self.aver_grade += sum(self.grades[grade_key])
             n_grade += len(self.grades[grade_key])
-        if n_grade > 0: self.aver_grade = self.aver_grade / n_grade
+        if n_grade > 0: self.aver_grade = round(self.aver_grade / n_grade, 1)
         return self.aver_grade
+    
+    def __gt__(self, other):
+        return self.aver_grade > other.aver_grade
+
+    def rate_hw(self, student, course, grade):
+        return 'Ошибка'
 
 
 class Reviewer (Mentor):
@@ -82,7 +94,8 @@ class Reviewer (Mentor):
         student.aver_grade_calc()
 
     def __str__(self) -> str:
-        outstr = f'print(some_reviewer)\n'
+        outstr = '\n'
+        outstr = f'{outstr}print(some_reviewer)\n'
         outstr = f'{outstr}Имя: {self.name}\n'
         outstr = f'{outstr}Фамилия: {self.surname}'
         return outstr
@@ -100,8 +113,17 @@ reviewer.courses_attached += ['Python', 'C++']
 
 student.rate_lecture(lecturer, 'Python', 7)
 student.rate_lecture(lecturer, 'Python', 8)
+student.rate_lecture(lecturer, 'C++', 100) # оценка не поставлена
+student.rate_lecture(lecturer, 'Java', 100) # оценка не поставлена
+student.rate_lecture(reviewer, 'Python', 100) # оценка не поставлена
+
 reviewer.rate_hw(student, 'Python', 8)
 reviewer.rate_hw(student, 'Python', 9)
+reviewer.rate_hw(student, 'C++', 100) # оценка не поставлена
+reviewer.rate_hw(student, 'Java', 100) # оценка не поставлена
+reviewer.rate_hw(lecturer, 'Python', 100)# оценка не поставлена
+
+lecturer.rate_hw(student, 'Python', 100) # оценка не поставлена
 
 print(reviewer)
 print(lecturer)
@@ -112,11 +134,11 @@ student_02.courses_in_progress += ['Python', 'Java']
 reviewer.rate_hw(student_02, 'Python', 8)
 reviewer.rate_hw(student_02, 'Python', 9)
 
-print(f"{student.name} {student.surname} успешнее чем {student_02.name} {student_02.surname}? - {student.aver_grade > student_02.aver_grade}")
+print(f"\nСтудент {student.name} {student.surname} успешнее чем {student_02.name} {student_02.surname}? - {student > student_02}")
 
 lecturer_02 = Lecturer('Макар', 'Макаров')
 lecturer_02.courses_attached += ['Python', 'C++']
 student_02.rate_lecture(lecturer_02, 'Python', 8)
 student_02.rate_lecture(lecturer_02, 'Python', 9)
 
-print(f"{lecturer.name} {lecturer.surname} успешнее чем {lecturer_02.name} {lecturer_02.surname}? - {lecturer.aver_grade > lecturer_02.aver_grade}")
+print(f"\nЛектор {lecturer.name} {lecturer.surname} успешнее чем {lecturer_02.name} {lecturer_02.surname}? - {lecturer > lecturer_02}")

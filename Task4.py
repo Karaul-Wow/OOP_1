@@ -43,6 +43,12 @@ class Student():
     def __gt__(self, other):
         return self.aver_grade > other.aver_grade
 
+    def __lt__(self, other):
+        return self.aver_grade < other.aver_grade
+
+    def __eq__(self, other):
+        return self.aver_grade == other.aver_grade
+
     
 class Mentor():
     def __init__(self, name, surname) -> None:
@@ -79,6 +85,12 @@ class Lecturer (Mentor):
     
     def __gt__(self, other):
         return self.aver_grade > other.aver_grade
+
+    def __lt__(self, other):
+        return self.aver_grade < other.aver_grade
+
+    def __eq__(self, other):
+        return self.aver_grade == other.aver_grade
 
 
 class Reviewer (Mentor):
@@ -158,8 +170,12 @@ print(reviewer_01)
 print(reviewer_02)
 
 print(f"\nСтудент {student_01.name} {student_01.surname} успешнее чем {student_02.name} {student_02.surname}? - {student_01 > student_02}")
-print(f"\nЛектор {lecturer_01.name} {lecturer_01.surname} успешнее чем {lecturer_02.name} {lecturer_02.surname}? - {lecturer_01 > lecturer_02}")
+print(f"\nСтудент {student_01.name} {student_01.surname} менее успешен чем {student_02.name} {student_02.surname}? - {student_01 < student_02}")
+print(f"\nСтудент {student_01.name} {student_01.surname} так же успешен как и {student_02.name} {student_02.surname}? - {student_01 == student_02}")
 
+print(f"\nЛектор {lecturer_01.name} {lecturer_01.surname} успешнее чем {lecturer_02.name} {lecturer_02.surname}? - {lecturer_01 > lecturer_02}")
+print(f"\nЛектор {lecturer_01.name} {lecturer_01.surname} менее успешен чем {lecturer_02.name} {lecturer_02.surname}? - {lecturer_01 < lecturer_02}")
+print(f"\nЛектор {lecturer_01.name} {lecturer_01.surname} так же успешен как и {lecturer_02.name} {lecturer_02.surname}? - {lecturer_01 == lecturer_02}")
 
 
 def average_grade_course(person_list, course):

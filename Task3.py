@@ -40,6 +40,12 @@ class Student():
     def __gt__(self, other):
         return self.aver_grade > other.aver_grade
 
+    def __lt__(self, other):
+        return self.aver_grade < other.aver_grade
+
+    def __eq__(self, other):
+        return self.aver_grade == other.aver_grade
+
 
     
 class Mentor():
@@ -74,6 +80,12 @@ class Lecturer (Mentor):
     
     def __gt__(self, other):
         return self.aver_grade > other.aver_grade
+
+    def __lt__(self, other):
+        return self.aver_grade < other.aver_grade
+
+    def __eq__(self, other):
+        return self.aver_grade == other.aver_grade
 
     def rate_hw(self, student, course, grade):
         return 'Ошибка'
@@ -135,6 +147,8 @@ reviewer.rate_hw(student_02, 'Python', 8)
 reviewer.rate_hw(student_02, 'Python', 9)
 
 print(f"\nСтудент {student.name} {student.surname} успешнее чем {student_02.name} {student_02.surname}? - {student > student_02}")
+print(f"\nСтудент {student.name} {student.surname} менее успешен чем {student_02.name} {student_02.surname}? - {student < student_02}")
+print(f"\nСтудент {student.name} {student.surname} так же успешен как и {student_02.name} {student_02.surname}? - {student == student_02}")
 
 lecturer_02 = Lecturer('Макар', 'Макаров')
 lecturer_02.courses_attached += ['Python', 'C++']
@@ -142,3 +156,5 @@ student_02.rate_lecture(lecturer_02, 'Python', 8)
 student_02.rate_lecture(lecturer_02, 'Python', 9)
 
 print(f"\nЛектор {lecturer.name} {lecturer.surname} успешнее чем {lecturer_02.name} {lecturer_02.surname}? - {lecturer > lecturer_02}")
+print(f"\nЛектор {lecturer.name} {lecturer.surname} менее успешен чем {lecturer_02.name} {lecturer_02.surname}? - {lecturer < lecturer_02}")
+print(f"\nЛектор {lecturer.name} {lecturer.surname} так же успешен как и {lecturer_02.name} {lecturer_02.surname}? - {lecturer == lecturer_02}")
